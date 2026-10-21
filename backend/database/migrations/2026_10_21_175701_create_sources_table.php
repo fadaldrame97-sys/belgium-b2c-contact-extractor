@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('sources', function (Blueprint $table) {
             $table->id();
+            $table->string('nom');
+            $table->string('url')->nullable();
+            $table->string('statut_autorisation')->default('a_verifier');
             $table->timestamps();
-        });
+});
     }
 
     /**
