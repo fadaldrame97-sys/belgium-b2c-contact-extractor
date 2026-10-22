@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('importations', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+      Schema::create('importations', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+        $table->foreignId('source_id')->constrained()->cascadeOnDelete();
+        $table->string('statut')->default('en_attente');
+        $table->unsignedInteger('nombre_importe')->default(0);
+        $table->unsignedInteger('nombre_ignore')->default(0);
+        $table->timestamps();
+    });
     }
 
     /**
