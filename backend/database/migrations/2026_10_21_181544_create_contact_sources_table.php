@@ -11,9 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contact_sources', function (Blueprint $table) {
+       Schema::create('contact_sources', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('contact_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('source_id')->constrained()->cascadeOnDelete();
+            $table->string('source_reference')->nullable();
+            $table->dateTime('date_collecte');
+            $table->dateTime('date_verification')->nullable();
             $table->timestamps();
+
+            $table->unique(['contact_id', 'source_id']);
         });
     }
 
