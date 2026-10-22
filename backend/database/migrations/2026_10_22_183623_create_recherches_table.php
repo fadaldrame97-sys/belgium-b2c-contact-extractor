@@ -12,9 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('recherches', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        $table->id();
+        $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+        $table->json('criteres');
+        $table->unsignedInteger('nombre_resultats')->default(0);
+        $table->timestamps();
+    });
     }
 
     /**
