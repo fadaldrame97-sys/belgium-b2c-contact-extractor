@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('demande_droits', function (Blueprint $table) {
+        Schema::create('demandes_droits', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('contact_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('user_traitement_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->string('type_demande');
+            $table->string('statut')->default('recue');
+            $table->dateTime('date_demande');
+            $table->dateTime('date_traitement')->nullable();
             $table->timestamps();
         });
     }
