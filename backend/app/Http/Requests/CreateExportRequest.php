@@ -2,28 +2,21 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateExportRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true; // à restreindre aux rôles autorisés avec US-02
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'nom' => ['nullable', 'string', 'max:100'],
+            'prenom' => ['nullable', 'string', 'max:100'],
+            'commune' => ['nullable', 'string', 'max:100'],
         ];
     }
 }
