@@ -8,7 +8,7 @@ class CreateExportRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true; // à restreindre aux rôles autorisés avec US-02
+        return true; 
     }
 
     public function rules(): array
@@ -16,7 +16,7 @@ class CreateExportRequest extends FormRequest
         return [
             'nom' => ['nullable', 'string', 'max:100'],
             'prenom' => ['nullable', 'string', 'max:100'],
-            'commune' => ['nullable', 'string', 'max:100'],
+            'commune' => ['nullable', 'string', 'max:150'],
         ];
     }
 }
