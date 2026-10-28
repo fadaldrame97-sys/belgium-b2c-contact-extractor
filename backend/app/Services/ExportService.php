@@ -28,6 +28,9 @@ class ExportService
             'date_expiration' => now()->addDays(30),
         ]);
 
+         $contenu = $this->genererCsv($contacts);
+        Storage::disk('local')->put($this->chemin($export), $contenu);
+
         
   } 
 
