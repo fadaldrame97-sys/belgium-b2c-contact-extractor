@@ -6,20 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('exports', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('utilisateur_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->string('type_export')->default('csv');
+            $table->json('filtre_utilise')->nullable();
+            $table->unsignedInteger('nombre_contacts')->default(0);
+            $table->json('champs_exportes');
+            $table->string('statut')->default('en_preparation');
+            $table->string('url_fichier')->nullable();
+            $table->dateTime('date_expiration')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('exports');
