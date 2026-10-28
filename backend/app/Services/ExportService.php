@@ -68,4 +68,37 @@ class ExportService
     }
 
 
+    private function genererCsv($contacts): string{
+       
+        $fichier = fopen('php://temp', 'r+');
+
+       
+        fwrite($fichier, "\xEF\xBB\xBF");
+
+        fputcsv($fichier, self::CHAMPS, ';');
+
+        foreach ($contacts as $contact) {
+            foreach ($contact->contactSources as $provenance) {
+                fputcsv($fichier, [
+                    $contact->nom,
+                    $contact->prenom,
+                    $contact->code_postal,
+                    $contact->commune,
+                    $contact->province,
+                    $provenance->source->nom,
+                    $provenance->date_collecte?->format('Y-m-d'),
+                ], ';');
+            }
+        }
+
+       
+        rewind($fichier);
+        $contenu = stream_get_contents($fichier);
+        fclose($fichier);
+
+        return $contenu;
+    }
+
+
+
   }   
