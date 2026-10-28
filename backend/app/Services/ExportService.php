@@ -58,4 +58,14 @@ class ExportService
         );
     }
 
+
+     private function chercherContacts(array $filtres){
+        return Contact::actif()
+            ->filtrer($filtres)
+            ->select('id', 'nom', 'prenom', 'code_postal', 'commune', 'province')
+            ->with('contactSources.source')
+            ->get();
+    }
+
+
   }   
