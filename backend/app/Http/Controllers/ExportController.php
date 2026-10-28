@@ -12,8 +12,7 @@ class ExportController extends Controller
     {
     }
 
-    public function createExport(CreateExportRequest $request)
-    {
+    public function createExport(CreateExportRequest $request){
         $export = $this->service->creer($request->validated(), $request->user()?->id);
 
         return response()->json([
@@ -22,6 +21,10 @@ class ExportController extends Controller
             'nombre_contacts' => $export->nombre_contacts,
             'date_expiration' => $export->date_expiration,
         ], 201);
+    }
+
+      public function telecharger(Export $export){
+        return $this->service->telecharger($export);
     }
 
     }
