@@ -31,7 +31,31 @@ class ExportService
          $contenu = $this->genererCsv($contacts);
         Storage::disk('local')->put($this->chemin($export), $contenu);
 
-        
+                $export->update([
+            'nombre_contacts' => $contacts->count(),
+            'statut'          => 'termine',
+            'url_fichier'     => route('exports.telecharger', $export),
+        ]);
+
+        return $export;
+
   } 
+
+      public function telecharger(Export $export){
+        
+        if ($export->statut === 'expire' || $export->date_expiration->isPast()) {
+            abort(410, 'Export expiré.');
+        }
+
+      
+        if (!Storage::disk('local')->exists($this->chemin($export))) {
+            abort(404);
+        }
+
+        return Storage::disk('local')->download(
+            $this->chemin($export),
+            "export_{$export->id}.csv"
+        );
+    }
 
   }   
