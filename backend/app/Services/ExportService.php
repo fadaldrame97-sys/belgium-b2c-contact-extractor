@@ -99,6 +99,10 @@ class ExportService
         return $contenu;
     }
 
+     private function chemin(Export $export): string{
+        return "exports/export_{$export->id}.csv";
+    }
+
 
 
   }   
