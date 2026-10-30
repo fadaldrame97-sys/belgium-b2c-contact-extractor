@@ -30,5 +30,43 @@ export default function Recherche() {
     setPage(1) 
   }
 
+
+    return (
+    <section>
+      <h2 className="text-lg font-semibold">Rechercher une fiche</h2>
+      <p className="mt-2 border-l-4 border-yellow-500 bg-yellow-50 px-4 py-2 text-sm">
+        Les résultats proviennent d'une source autorisée. Leur usage est limité
+        à la finalité déclarée. Aucune donnée masquée ou retirée n'est affichée.
+      </p>
+
+      <FormulaireRecherche
+        criteres={criteres}
+        onChange={changerCriteres}
+        onReset={() => changerCriteres(criteresVides)}
+      />
+
+      <p className="mb-2 text-sm text-gray-600">{resultats.length} résultat(s)</p>
+      <ListeResultats contacts={affiches} dateConsultation={dateConsultation} />
+
+      <div className="mt-4 flex items-center gap-3">
+        <button
+          disabled={page === 1}
+          onClick={() => setPage(page - 1)}
+          className="rounded bg-blue-900 px-4 py-2 text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:bg-gray-400"
+        >
+          Précédent
+        </button>
+        <span>Page {page} / {totalPages}</span>
+        <button
+          disabled={page === totalPages}
+          onClick={() => setPage(page + 1)}
+          className="rounded bg-blue-900 px-4 py-2 text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:bg-gray-400"
+        >
+          Suivant
+        </button>
+      </div>
+    </section>
+  )
+
   }
     
