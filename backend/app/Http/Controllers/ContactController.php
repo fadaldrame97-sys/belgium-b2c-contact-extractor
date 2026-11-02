@@ -21,3 +21,17 @@ class ContactController extends Controller
                     'seed' => 'belgium-demo'
                 ]
             );
+
+            if (!$reponse->successful()) {
+                return response()->json([
+                    'message' => 'Impossible de contacter FakeNamely.'
+                ], 502);
+            }
+
+            $donnees = $reponse->json();
+
+            if (!isset($donnees['success']) || !$donnees['success']) {
+                return response()->json([
+                    'message' => 'La réponse de l’API est invalide.'
+                ], 502);
+            }
