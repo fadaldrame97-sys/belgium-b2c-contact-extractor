@@ -5,6 +5,7 @@ import { contacts } from '../data/contactsFictifs.js'
 
 const criteresVides = { nom: '', prenom: '', commune: '', codePostal: '' }
 
+const PAR_PAGE = 5
 const normaliser = (texte) =>
   texte.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 const contient = (valeur, saisie) => normaliser(valeur).includes(normaliser(saisie))

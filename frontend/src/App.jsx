@@ -1,8 +1,8 @@
 import { Routes, Route, NavLink } from 'react-router-dom'
 import Recherche from './pages/Recherche.jsx'
-import Connexion from './pages/Connexion.jsx'
-import DemandesDroits from './pages/DemandesDroits.jsx'
-import NonTrouvee from './pages/NonTrouvee.jsx'
+//import Connexion from './pages/Connexion.jsx'
+//import DemandesDroits from './pages/DemandesDroits.jsx'
+//import NonTrouvee from './pages/NonTrouvee.jsx'
 
 const classeLien = ({ isActive }) =>
   `rounded px-3 py-1 ${isActive ? 'bg-white text-blue-900' : 'text-white hover:bg-blue-800'}`
@@ -22,9 +22,9 @@ export default function App() {
       <main className="mx-auto my-6 max-w-5xl px-4">
         <Routes>
           <Route path="/" element={<Recherche />} />
-          <Route path="/droits" element={<DemandesDroits />} />
-          <Route path="/connexion" element={<Connexion />} />
-          <Route path="*" element={<NonTrouvee />} />
+          {/* <Route path="/droits" element={<DemandesDroits />} /> */}
+          {/* <Route path="/connexion" element={<Connexion />} /> */}
+          {/* <Route path="*" element={<NonTrouvee />} /> */}
         </Routes>
       </main>
     </div>
