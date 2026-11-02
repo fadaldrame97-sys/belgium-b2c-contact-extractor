@@ -35,3 +35,13 @@ class ContactController extends Controller
                     'message' => 'La réponse de l’API est invalide.'
                 ], 502);
             }
+
+                    $source = Source::firstOrCreate(
+                ['nom' => 'FakeNamely'],
+                [
+                    'url' => 'https://fakenamely.com/api',
+                    'statut_autorisation' => 'demo_fictive'
+                ]
+            );
+
+            $nombreImporte = 0;
