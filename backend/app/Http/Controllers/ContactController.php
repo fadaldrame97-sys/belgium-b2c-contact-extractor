@@ -45,3 +45,32 @@ class ContactController extends Controller
             );
 
             $nombreImporte = 0;
+
+
+         foreach ($donnees['data'] as $personne) {
+
+                $nom = $personne['name']['last'] ?? '';
+                $prenom = $personne['name']['first'] ?? '';
+
+                $adresse = $personne['address']['street'] ?? null;
+                $commune = $personne['address']['city'] ?? null;
+                $codePostal = $personne['address']['postalCode'] ?? null;
+                $province = $personne['address']['stateOrRegion'] ?? null;
+
+                $telephone = $personne['contact']['phone'] ?? null;
+
+             
+                $contact = Contact::firstOrCreate(
+                    [
+                        'nom' => $nom,
+                        'prenom' => $prenom,
+                        'adresse' => $adresse
+                    ],
+                    [
+                        'telephone' => $telephone,
+                        'code_postal' => $codePostal,
+                        'commune' => $commune,
+                        'province' => $province,
+                        'statut' => 'actif'
+                    ]
+                );
