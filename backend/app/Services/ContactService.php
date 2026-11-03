@@ -22,8 +22,28 @@ class ContactService
                 ->count('commune'),
         ];
     }
-    public function importer()
-    {
+
+
+       public function lister(array $filtres){
+        $requete = Contact::query()
+            ->with('contactSources.source')
+            ->orderBy('nom');
+
+        foreach (['nom', 'prenom', 'commune', 'code_postal'] as $champ) {
+            if (!empty($filtres[$champ])) {
+                $requete->where($champ, 'like', '%' . $filtres[$champ] . '%');
+            }
+        }
+
+        if (!empty($filtres['statut'])) {
+            $requete->where('statut', $filtres['statut']);
+        }
+
+        $nombreParPage = $filtres['per_page'] ?? 10;
+
+        return $requete->paginate($nombreParPage)->withQueryString();
+    }
+    public function importer(){
      
         $reponse = Http::timeout(20)->get(
             'https://fakenamely.com/api/v1/identity',
