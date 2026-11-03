@@ -8,6 +8,20 @@ use Illuminate\Support\Facades\Http;
 
 class ContactService
 {
+
+
+    public function statistiques(): array
+    {
+        return [
+            'total' => Contact::count(),
+            'actifs' => Contact::where('statut', 'actif')->count(),
+            'inactifs' => Contact::where('statut', 'inactif')->count(),
+            'communes' => Contact::whereNotNull('commune')
+                ->where('commune', '<>', '')
+                ->distinct('commune')
+                ->count('commune'),
+        ];
+    }
     public function importer()
     {
      
