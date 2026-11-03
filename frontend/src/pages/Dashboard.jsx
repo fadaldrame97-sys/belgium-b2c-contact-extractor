@@ -22,7 +22,7 @@ function Dashboard() {
   const [erreur, setErreur] = useState('')
   const [actionEnCours, setActionEnCours] = useState(false)
 
-     function chargerContacts(nouveauxFiltres = filtres) {
+    function chargerContacts(nouveauxFiltres = filtres) {
     setChargement(true)
     setErreur('')
 
@@ -63,4 +63,36 @@ function Dashboard() {
   function rechercher(event) {
     event.preventDefault()
     await chargerContacts(filtres)
+  }
+
+  function reinitialiser() {
+    const nouveauxFiltres = {
+      nom: '',
+      prenom: '',
+      commune: '',
+      code_postal: '',
+      statut: '',
+      page: 1,
+      per_page: 10,
+    }
+
+    setFiltres(nouveauxFiltres)
+   chargerContacts(nouveauxFiltres)
+  }
+
+    async function lancerImportation() {
+    setActionEnCours(true)
+    setMessage('')
+    setErreur('')
+
+    try {
+      const resultat = await importerContacts()
+      setMessage(`${resultat.message} ${resultat.nombre_importe} profils fictifs traités.`)
+      await chargerContacts()
+      await chargerStatistiques()
+    } catch (error) {
+      setErreur(error.response?.data?.message || 'L’importation a échoué.')
+    } finally {
+      setActionEnCours(false)
+    }
   }
