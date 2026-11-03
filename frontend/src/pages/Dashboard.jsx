@@ -36,3 +36,31 @@ function Dashboard() {
       setChargement(false)
     }
   }
+
+    function chargerStatistiques() {
+    try {
+      const resultat = await getStatistiques()
+      setStatistiques(resultat)
+    } catch {
+      setErreur('Impossible de charger les statistiques.')
+    }
+  }
+
+  useEffect(() => {
+    chargerContacts()
+    chargerStatistiques()
+  }, [])
+
+  function modifierFiltre(event) {
+    const { name, value } = event.target
+    setFiltres((anciensFiltres) => ({
+      ...anciensFiltres,
+      [name]: value,
+      page: 1,
+    }))
+  }
+
+  function rechercher(event) {
+    event.preventDefault()
+    await chargerContacts(filtres)
+  }
