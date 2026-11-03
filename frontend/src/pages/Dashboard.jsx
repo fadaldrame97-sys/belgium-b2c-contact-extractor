@@ -21,3 +21,18 @@ function Dashboard() {
   const [message, setMessage] = useState('')
   const [erreur, setErreur] = useState('')
   const [actionEnCours, setActionEnCours] = useState(false)
+
+     function chargerContacts(nouveauxFiltres = filtres) {
+    setChargement(true)
+    setErreur('')
+
+    try {
+      const resultat = await getContacts(nouveauxFiltres)
+      setContacts(resultat.contacts.data)
+      setPagination(resultat.contacts)
+    } catch (error) {
+      setErreur(error.response?.data?.message || 'Impossible de charger les contacts. Vérifiez que Laravel est démarré.')
+    } finally {
+      setChargement(false)
+    }
+  }
