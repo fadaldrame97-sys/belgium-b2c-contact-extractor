@@ -96,3 +96,26 @@ function Dashboard() {
       setActionEnCours(false)
     }
   }
+
+    function lancerExport() {
+    setActionEnCours(true)
+    setMessage('')
+    setErreur('')
+
+    try {
+      const resultat = await exporterContacts({
+        nom: filtres.nom,
+        prenom: filtres.prenom,
+        commune: filtres.commune,
+      })
+
+      if (resultat.url) {
+        window.location.href = resultat.url
+        setMessage(`Export créé : ${resultat.nombre_contacts} contacts.`)
+      }
+    } catch (error) {
+      setErreur(error.response?.data?.message || 'La création de l’export a échoué.')
+    } finally {
+      setActionEnCours(false)
+    }
+  }
