@@ -1,4 +1,4 @@
-import { useEffect , useState } from 'react'
+import { useState } from 'react'
 import ContactTable from '../components/ContactTable'
 import StatCard from '../components/StatCard'
 import {
