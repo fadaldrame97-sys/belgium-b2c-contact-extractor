@@ -8,8 +8,7 @@ use Illuminate\Validation\ValidationException;
 
 class AuthService
 {
-    public function connecter(array $donnees): array
-    {
+    public function connecter(array $donnees): array{
         $utilisateur = User::where('email', $donnees['email'])->first();
 
         if (!$utilisateur || !Hash::check($donnees['password'], $utilisateur->password)) {
@@ -31,3 +30,12 @@ class AuthService
             'token' => $token,
         ];
     }
+
+       public function deconnecter(User $utilisateur): void{
+        $tokenActuel = $utilisateur->currentAccessToken();
+
+        if ($tokenActuel) {
+            $tokenActuel->delete();
+        }
+    }
+}
