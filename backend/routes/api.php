@@ -15,6 +15,10 @@ Route::post('/login', [AuthController::class, 'login'])
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    Route::get('/contacts', [ContactController::class, 'index']);
+
+    Route::get('/contacts/statistiques', [ContactController::class, 'statistiques']);
+
 
     Route::get('/user', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
